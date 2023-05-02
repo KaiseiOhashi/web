@@ -153,7 +153,7 @@ function updateGame() {
 
   // 衝突判定
   for (let block of blocks) {
-    if (entitiesAreColliding(player, block, 30 + 40, 45 + 200)) {
+    if (entitiesAreColliding(player, block, 30 + 40, 23 + 200)) {
       gameState = "gameover";
       break;
     }
@@ -163,7 +163,7 @@ function updateGame() {
 /** ゲームの描画 */
 function drawGame() {
   // 全エンティティを描画
-  image(img2, 0, 0, width, height);
+  image(img2, width / 2, height / 2, width, height);
   drawPlayer(player);
   for (let block of blocks) drawBlock(block);
   // ゲームオーバー状態なら、それ用の画面を表示
@@ -194,6 +194,7 @@ function preload() {
 function setup() {
   createCanvas(800, 600);
   rectMode(CENTER);
+  imageMode(CENTER);
   resetGame();
 }
 
