@@ -8,6 +8,12 @@ function updatePosition(entity) {
 }
 
 // プレイヤーエンティティ用
+function preload() {
+  //画像をロード
+  img = loadImage('./heri2.png');
+  img2 = loadImage('./sky.png');
+  img3 = loadImage('./ki.png');
+  }
 
 function createPlayer() {
   return {
@@ -27,9 +33,7 @@ function applyJump(entity) {
 }
 
 function drawPlayer(entity) {
-  noStroke();
-  fill("#7C96AB")
-  square(entity.x, entity.y, 40);
+  image(img, entity.x, entity.y, 60, 45);
 }
 
 function playerIsAlive(entity) {
@@ -51,8 +55,8 @@ function createBlock(y) {
 
 function drawBlock(entity) {
   noStroke();
-  fill("#BFCCB5")
-  rect(entity.x, entity.y, 80, 400);
+  fill(0);
+  image(img3, entity.x, entity.y, 80, 400);
 }
 
 function blockIsAlive(entity) {
@@ -90,6 +94,10 @@ function entitiesAreColliding(
 }
 
 // ---- ゲーム全体に関わる部分 --------------------------------------------
+/** 画像データ */
+let img;
+
+let img2;
 
 /** プレイヤーエンティティ */
 let player;
@@ -111,9 +119,12 @@ function addBlockPair() {
 function drawGameoverScreen() {
   background(0, 192); // 透明度 192 の黒
   fill(255);
-  textSize(64);
+  textSize(75);
   textAlign(CENTER, CENTER); // 横に中央揃え ＆ 縦にも中央揃え
-  text("GAME OVER", width / 2, height / 2); // 画面中央にテキスト表示
+  textFont('Sigmar');
+  text("Game Over", width / 2, height / 2); // 画面中央にテキスト表示
+  textSize(32);
+  text("Click to try again", width / 2, 450);
 }
 
 /** ゲームのリセット */
@@ -159,10 +170,9 @@ function updateGame() {
 /** ゲームの描画 */
 function drawGame() {
   // 全エンティティを描画
-  background(0);
+  image(img2, 0, 0, width, height);
   drawPlayer(player);
   for (let block of blocks) drawBlock(block);
-
   // ゲームオーバー状態なら、それ用の画面を表示
   if (gameState === "gameover") drawGameoverScreen();
 }
@@ -186,7 +196,6 @@ function onMousePress() {
 function setup() {
   createCanvas(800, 600);
   rectMode(CENTER);
-
   resetGame();
 }
 

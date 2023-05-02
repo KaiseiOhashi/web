@@ -8,12 +8,6 @@ function updatePosition(entity) {
 }
 
 // プレイヤーエンティティ用
-function preload() {
-  //画像をロード
-  img = loadImage('./heri2.png');
-  img2 = loadImage('./sky.png');
-  }
-
 function createPlayer() {
   return {
     x: 200,
@@ -32,7 +26,7 @@ function applyJump(entity) {
 }
 
 function drawPlayer(entity) {
-  image(img, entity.x, entity.y, 60, 40);
+  image(img, entity.x, entity.y, 60, 45);
 }
 
 function playerIsAlive(entity) {
@@ -118,9 +112,12 @@ function addBlockPair() {
 function drawGameoverScreen() {
   background(0, 192); // 透明度 192 の黒
   fill(255);
-  textSize(64);
+  textSize(75);
   textAlign(CENTER, CENTER); // 横に中央揃え ＆ 縦にも中央揃え
+  textFont('Sigmar');
   text("Game Over", width / 2, height / 2); // 画面中央にテキスト表示
+  textSize(32);
+  text("Click to try again", width / 2, 450);
 }
 
 /** ゲームのリセット */
@@ -156,7 +153,7 @@ function updateGame() {
 
   // 衝突判定
   for (let block of blocks) {
-    if (entitiesAreColliding(player, block, 20 + 40, 20 + 200)) {
+    if (entitiesAreColliding(player, block, 30 + 40, 45 + 200)) {
       gameState = "gameover";
       break;
     }
@@ -169,7 +166,6 @@ function drawGame() {
   image(img2, 0, 0, width, height);
   drawPlayer(player);
   for (let block of blocks) drawBlock(block);
-
   // ゲームオーバー状態なら、それ用の画面を表示
   if (gameState === "gameover") drawGameoverScreen();
 }
@@ -189,6 +185,11 @@ function onMousePress() {
 }
 
 // ---- setup/draw 他 --------------------------------------------------
+function preload() {
+  //画像をロード
+  img = loadImage('./heri2.png');
+  img2 = loadImage('./sky.png');
+  }
 
 function setup() {
   createCanvas(800, 600);
